@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Completed Readers{% endblock %}
+
+{% block content %}
+	<form method="POST">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	</form>
+
+	<div class="index-page">
+		<div class="staff-header">
+			<h1>Completed Readers</h1>
+			<h2>{{ user_obj.full_name_user }}</h2>
+			<h3>These  readers from <a href="{{ library_obj.library_website_url }}" target="_blank">{{ staff_obj.employer }}</a> have completed all of their {{ date.year }} summer reading goals!</h3>
+		</div>
+		<div>
+			<table class="centered demo-table" style="border-collapse: collapse; line-height: 1.5em;">
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+					<th>School</th>
+					<th>Reading Goal</th>
+					<th>Activities Completed</th>
+					<th>Contact E-mail/<br />Phone Number</th>
+				</tr>
+					{% for reader in comp_reader_obj %}
+						<tr>
+							<td class="demo-table">
+								{{ reader.name }}
+							</td>
+							<td class="demo-table">
+								{{ reader.age }} years old
+							</td>
+							<td class="demo-table">
+								{{ reader.reader_school }}
+							</td>
+							<td class="demo-table">
+								{% if reader.time_read > timedelta(seconds=0) %}
+									{{ reader.time_read }}
+								{% endif %}
+								{% if reader.books_read > 0 %}
+									{{ reader.books_read }} books
+								{% endif %}
+							</td>
+							<td class="demo-table">
+								{{ reader.activities_completed }} activities completed
+							</td>
+							<td class="demo-table">
+								<a href="mailto:{{ reader.email }}">{{ reader.email }}</a><br />
+								<a href="tel:{{ reader.phone }}">{{ reader.phone }}</a>
+							</td>
+						</tr>
+					{% endfor %}
+			</table>
+		</div>
+	</div>
+			
+			
+			
+			
+			
+			
+			
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Sorry, a Server Error Ocurred{% endblock %}
+
+{% block content %}
+	<form method="POST">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	</form>
+	<div class="error-page">
+		<div class="error-underlay">
+			500
+		</div>
+		<div class="error-content">
+			<h1>Error 500</h1>
+			<p style="font-size: larger;">Sorry, there was a server error. This one is probably our fault.</p>
+			<p><a href="{{ (url_for('reader.index')) }}">Turn back the Page</a></p>
+			<p style="font-size: smaller;"><a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_server_errors" title="Open the Wikipedia article &#8220;List of HTTP status codes&#8221; in a new window or tab." target="_blank"><i class="fa-brands fa-wikipedia-w"></i> Find Out More about 500 Errors</a></p>
+		</div>
+	</div>
+{% endblock %}

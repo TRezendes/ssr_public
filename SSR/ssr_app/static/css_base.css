@@ -1,0 +1,658 @@
+html {
+	min-height: 100%
+}
+
+body {
+	background: white;
+	background-image: linear-gradient(to bottom, #9a9aba, white);
+	color: #222255;
+	font-family: 'Comfortaa', sans-serif;
+	font-weight: 500;
+}
+
+a {
+	color: #2244aa;
+	text-decoration: none;
+	font-weight: 700;
+}
+
+a:visited {
+	color: #5544bb;
+}
+
+a:hover {
+	color: #5577dd;
+	text-shadow: 2px 2px 5px #00000025;
+
+}
+
+a:active {
+	color: #7799ff;
+	transform: translateY(2px);
+	text-shadow: 2px 2px 10px #00000025;
+}
+
+table.demo-table {
+	width: 50%;
+	table-layout: auto;
+	background-color: #ffffff25;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+.demo-table {
+	border: 1px solid #222255;
+}
+
+#footer {
+	position: fixed;
+	right: 0%;
+	top: 96%;
+	height: 4%;
+	padding: 10px;
+	border-radius: 10px 0 0 0;
+	text-align: right;
+	background: white;
+	background-image: linear-gradient(to top, #9a9aba, white);
+	box-shadow: -2px -2px 8px #44444475;
+	z-index: 3;
+}
+
+#header {
+	position: fixed;
+	right: 0%;
+	top: 0%;
+	height: 6%;
+	width: 100%;
+	margin-bottom: 2%;
+	text-align: left;
+	background: white;
+	background-image: linear-gradient(to top, #9a9aba, #2a2a4a99);
+	box-shadow: 0 5px 10px #44444475;
+	z-index: 3;
+}
+
+#header p {
+	margin-left: 2%;
+	margin-right: 2%;
+	padding-bottom: 4px;
+}
+
+.head-right {
+	position: fixed;
+	top: 0%;
+	right: 0%;
+	z-index: 1;
+	margin: 1%;
+}
+
+h1 {
+	font-family: 'Yeon Sung', cursive;
+	font-size: 4em;
+	font-weight: 700;
+	color: #4a88cf90;
+	text-align: center;
+	padding: 5px;
+	line-height: 1.4;
+	text-shadow: 0px 1px 0 #55559980,
+		0px 2px 0 #64647b70,
+		1px 3px 0 #64647b60,
+		2px 4px 0 #64646a50,
+		3px 5px 0 #60606780,
+		4px 6px 1px rgba(5, 5, 5, .1),
+		0 0 5px rgba(0, 0, 0, .1),
+		0px 1px 3px rgba(0, 0, 0, .3),
+		1px 3px 5px rgba(0, 0, 0, .2),
+		3px 5px 10px rgba(0, 0, 0, .25),
+		8px 10px 10px rgba(0, 0, 0, .2),
+		18px 20px 20px rgba(0, 0, 0, .15);
+}
+
+hr {
+	width: 33%;
+}
+
+.centered {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+
+}
+
+.smaller {
+	font-size: smaller;
+}
+
+.larger {
+	font-size: larger;
+}
+
+.h3-like {
+	font-size: 1.17em;
+	font-weight: bold;
+}
+
+.bit-o-space {
+	margin: 2%;
+}
+
+.breathe {
+	padding: 10px;
+	margin-bottom: 2%;
+}
+
+.light-background {
+	border-radius: 10%;
+	background-color: #ffffff25;
+}
+
+.dark-background {
+	padding: 1px;
+	border-radius: 10px;
+	background-color: #18188c25;
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-container div {
+	margin: 10px;
+}
+
+.grid-container {
+	width: 75%;
+	display: grid;
+	column-gap: 50px;
+	row-gap: 25px;
+	margin: 3% auto;
+}
+
+.five {
+	grid-template-columns: auto auto auto auto auto;
+}
+
+.four {
+	grid-template-columns: auto auto auto auto;
+}
+
+.three {
+	grid-template-columns: auto auto auto;
+}
+
+.two {
+	grid-template-columns: auto auto;
+}
+
+.stat-cols {
+	grid-template:
+		'. header header .'
+		'stat-1 stat-1 stat-2 stat-2'
+		'chart-1 chart-1 chart-1 chart-1'
+		'chart-2 chart-2 chart-2 chart-2'
+		'. footer footer .'
+
+}
+
+.grid-container div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: inherit;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #88888835;
+	padding: 5% 5% 0;
+	border-radius: 10%;
+	background-color: #ffffff25;
+}
+
+.grid-stat-header {
+	grid-area: header;
+}
+
+.grid-stat-block-1 {
+	grid-area: stat-1;
+}
+
+.grid-stat-block-2 {
+	grid-area: stat-2;
+}
+
+.grid-stat-chart-1 {
+	grid-area: chart-1;
+}
+
+.grid-stat-chart-2 {
+	grid-area: chart-2;
+}
+.grid-stat-footer {
+	grid-area: footer;
+}
+.grid-container .stats {
+	display: initial;
+	flex-direction: initial;
+	align-items: initial;
+	justify-content: initial;
+}
+
+.grid-container div div {
+	background-color: initial;
+	border: initial;
+}
+
+.chart {
+	width: 80%;
+	padding: 0 2%;
+	margin-bottom: 5%;
+	border-radius: 5%;
+}
+
+.grid-container div.checked {
+	background-color: #19d81925;
+}
+
+.progress-bar {
+	width: 80%;
+	height: 4em;
+	border: 2px solid #2222c6;
+	border-radius: 20px;
+	margin: 2% auto;
+}
+
+.progress-bar .fill {
+	height: 100%;
+	border-radius: 15px;
+	margin: 0 auto 0 0;
+	background-color: #18188c;
+	width: 0;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	line-height: 4em;
+}
+
+.progress-bar .complete {
+	background-color: #19d819;
+	color: #18188c;
+	border-radius: 18px;
+}
+
+.progress-summary {
+	font-size: smaller;
+	margin-bottom: 5px;
+}
+
+i.complete {
+	color: #19d819;
+}
+
+.error-page {
+	font-family: 'Comfortaa', sans-serif;
+}
+
+.error-underlay {
+	color: #825F5925;
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+	left: 5%;
+	top: -15%;
+	font-size: 50vw;
+	font-family: 'Yeon Sung', cursive;
+}
+
+.error-content {
+	position: relative;
+	z-index: 1;
+}
+
+.site-logo {
+	font-size: 10em;
+	color: #4a88cf90;
+}
+img.site-logo {
+	filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, .15));
+	margin: 0 -10px 10px 2px;
+	width: 20%;
+}
+
+.index-page {
+	text-align: center;
+}
+
+.form {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 75%;
+}
+
+.form-line-input {
+	border-radius: 2px;
+	border: 0;
+	padding: 2px;
+	height: 2em;
+}
+
+.register-label {
+	font-size: smaller;
+	margin: 5%;
+	padding: 2px;
+	width: 200%;
+}
+
+.form-caption {
+	font-size: xx-small;
+	color: #666666;
+}
+
+.button {
+	box-shadow:
+		0 4px 8px 0 rgba(0, 0, 0, 0.2),
+		0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	width: auto;
+	height: 3em;
+	font-size: 1em;
+	border: 2px solid #222255;
+	border-radius: 5px;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.close-button {
+	width: initial;
+	height: initial;
+	margin-left: 15px;
+	border-radius: 5px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.submit-button {
+	background-color: #77777725;
+}
+
+.submit-button:hover {
+	background-color: #77777775;
+}
+
+.delete-button {
+	background-color: #ff777725;
+	border-color: #552222;
+}
+
+.delete-button:hover {
+	background-color: #ff777775;
+}
+
+.close-button:hover {
+	color: #77777775;
+}
+
+.button:active {
+	box-shadow: none;
+	transform: translateY(4px);
+}
+
+div.sneaky {
+	display: none;
+}
+
+span.sneaky {
+	display: inline;
+}
+
+input[type=checkbox]:checked+div.sneaky {
+	display: flex;
+}
+
+input[type=checkbox]:checked+div+br+span.sneaky {
+	display: none;
+}
+
+input[type=radio]+div.sneaky {
+	display: none;
+}
+
+input[type=radio]#school_bool-1:checked+div.sneaky {
+	display: flex;
+}
+
+/* Alert styles adapted from https://www.w3schools.com/howto/howto_js_alert.asp */
+.alert {
+	position: fixed;
+	left: 25%;
+	top: 0;
+	width: 50%;
+	text-align: center;
+	padding: 20px;
+	background-color: #6d6d6d;
+	color: white;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	opacity: 1;
+	transition: opacity 0.6s;
+	z-index: 5;
+}
+
+.alert-message {
+	background-color: #35baf6;
+}
+
+.alert-success {
+	background-color: #19d819;
+	color: #004400;
+}
+
+.alert-danger {
+	background-color: #f63535;
+}
+
+.alert-info {
+	background-color: #ffc540;
+	color: #231c0d;
+}
+
+
+
+
+/* ~~~ */
+
+/* Modal Delete Confirmation adapted from https://www.w3schools.com/howto/howto_css_delete_modal.asp*/
+* {
+	box-sizing: border-box
+}
+
+/* Float cancel and delete buttons and add an equal width */
+.clearfix .cancel-button, .clearfix .delete-button {
+	margin-left: auto;
+	margin-right: auto;
+	width: 20%;
+}
+
+/* Add padding and center-align text to the container */
+.container {
+	padding: 16px;
+	text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 3;
+	/* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: #474e5d;
+	padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto;
+	/* 5% from the top, 15% from the bottom and centered */
+	border: 1px solid #888;
+	width: 80%;
+}
+
+/* The Modal Close Button (x) */
+.close-modal {
+	position: absolute;
+	right: 35px;
+	top: 15px;
+	font-size: 40px;
+	font-weight: bold;
+	color: #f1f1f1;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+	color: #f44336;
+	cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.staff-header {
+	width: 33%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.staff-header img {
+	width: 50%;
+	border-radius: 5%;
+}
+
+.stat-list {
+	text-align: left;
+}
+
+.stat-list li {
+	padding: 1% 0;
+}
+
+.stat {
+	font-family: 'Yeon Sung', cursive;
+	font-size: 1.5em;
+	font-weight: 700;
+	color: #2a68af90;
+	text-shadow: 2px 2px 5px #00000025;
+	margin-left: 3%;
+}
+
+/*	Confetti animation by user Steven_Joel (https://discourse.webflow.com/u/Steven_Joel) at:
+	https://discourse.webflow.com/t/add-falling-confetti-with-css/103687 */
+.conf-container {
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
+}
+
+.confetti {
+	width: 15px;
+	height: 15px;
+	background-color: #f2d74e;
+	position: absolute;
+	left: 50%;
+	animation: confetti 5s ease-in-out -2s infinite;
+	transform-origin: left top;
+}
+
+.confetti:nth-child(1) {
+	background-color: #f2d74e;
+	left: 10%;
+	animation-delay: 0;
+}
+
+.confetti:nth-child(2) {
+	background-color: #95c3de;
+	left: 20%;
+	animation-delay: -5s;
+}
+
+.confetti:nth-child(3) {
+	background-color: #ff9a91;
+	left: 30%;
+	animation-delay: -3s;
+}
+
+.confetti:nth-child(4) {
+	background-color: #f2d74e;
+	left: 40%;
+	animation-delay: -2.5s;
+}
+
+.confetti:nth-child(5) {
+	background-color: #95c3de;
+	left: 50%;
+	animation-delay: -4s;
+}
+
+.confetti:nth-child(6) {
+	background-color: #ff9a91;
+	left: 60%;
+	animation-delay: -6s;
+}
+
+.confetti:nth-child(7) {
+	background-color: #f2d74e;
+	left: 70%;
+	animation-delay: -1.5s;
+}
+
+.confetti:nth-child(8) {
+	background-color: #95c3de;
+	left: 80%;
+	animation-delay: -2s;
+}
+
+.confetti:nth-child(9) {
+	background-color: #ff9a91;
+	left: 90%;
+	animation-delay: -3.5s;
+}
+
+.confetti:nth-child(10) {
+	background-color: #f2d74e;
+	left: 100%;
+	animation-delay: -2.5s;
+}
+@keyframes confetti {
+  0% { transform: rotateZ(15deg) rotateY(0deg) translate(0,0); }
+  25% { transform: rotateZ(5deg) rotateY(360deg) translate(-5vw,20vh); }
+  50% { transform: rotateZ(15deg) rotateY(720deg) translate(5vw,60vh); }
+  75% { transform: rotateZ(5deg) rotateY(1080deg) translate(-10vw,80vh); }
+  100% { transform: rotateZ(15deg) rotateY(1440deg) translate(10vw,110vh); }
+}
+
+/* */

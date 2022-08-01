@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Sorry, This Area is Restricted{% endblock %}
+
+{% block content %}
+	<form method="POST">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	</form>
+	<div class="error-page">
+		<div class="error-underlay">
+			403
+		</div>
+		<div class="error-content">
+			<h1>Error 403</h1>
+			<p style="font-size: larger;">We're terribly sorry, but you do not have permission to view this page.</p>
+			<p><a href="{{ (url_for('reader.index')) }}">Turn back the Page</a></p>
+			<p style="font-size: smaller;"><a href="https://en.wikipedia.org/wiki/HTTP_403" title="Open the Wikipedia article &#8220;HTTP 403&#8221; in a new window or tab." target="_blank"><i class="fa-brands fa-wikipedia-w"></i> Find Out More about 403 Errors</a></p>
+		</div>
+	</div>
+{% endblock %}

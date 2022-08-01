@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Earn Prizes!{% endblock %}
+
+{% block content %}	
+	<form method="POST">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	</form>
+	<div class="index-page">
+		{% if current_user.is_authenticated %}
+			<h1>{{ rname }}, You Can Earn These Prizes!</h1>
+			<div class="grid-container three">
+				{% for prize in prize_obj %}
+					<a href="{{ prize.sponsor_url }}" target="_blank">
+						<div>
+							<p>{{ loop.index }}: {{ prize.prize_desc }}<br /><img src="{{ url_for('reader.static', filename=prize.sponsor_logo) }}" /> </p>
+						</div>
+					</a>
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if current_user.is_authenticated == False %}
+			<h1>Earn Prizes For Reading!</h1>
+			<h2>(And Writing And Cooking And Singing And Making Art And Playing)</h2>
+			<div class="grid-container three">
+				{% for prize in randalorian %}
+					<a href="{{ prize.sponsor_url }}" target="_blank">
+						<div>
+							<p>{{ prize.prize_desc }}<br /><img src="{{ url_for('reader.static', filename=prize.sponsor_logo) }}" /> </p>
+						</div>
+					</a>
+				{% endfor %}
+			</div>	
+		{% endif %}
+		<div class="smaller">
+			*Some prizes are offered as a choice of one among similar rewards. 
+		</div>
+	</div>
+{% endblock %}

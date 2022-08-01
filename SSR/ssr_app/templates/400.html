@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Sorry, We Didn't Understand{% endblock %}
+
+{% block content %}
+	<form method="POST">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	</form>
+	<div class="error-page">
+		<div class="error-underlay">
+			400
+		</div>
+		<div class="error-content">
+			<h1>Error 400</h1>
+			<p style="font-size: larger;">That was a bad request. We're not sure why, but maybe head back to the home page and try again.</p>
+			<p><a href="{{ url_for('reader.index') }}">Turn back the page.</a></p>
+			<p style="font-size: smaller;"><a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#400" title="Open the Wikipedia article &#8220;List of HTTP status codes&#8221; in a new window or tab." target="_blank"><i class="fa-brands fa-wikipedia-w"></i> Find Out More about 400 Errors</a></p>
+		</div>
+	</div>
+{% endblock %}

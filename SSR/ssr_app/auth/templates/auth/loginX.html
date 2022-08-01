@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+
+<div class="index-page">
+	<h1>Welcome to Simple Summer Reading!</h1>
+	<i class="fa-solid fa-book-open-reader site-logo"></i>
+	</div>
+<div class="form">
+		<form method="POST">
+		{{ form.hidden_tag() }}
+		<p>
+			{{ form.username.label }}
+			{{ form.username(size=42, placeholder='Username', class_='form-line-input') }}
+		</p>
+		<p>
+			{{ form.password.label }}
+			{{ form.password(size=42, placeholder='Password', class_='form-line-input') }}
+		</p>
+		<p><input type="submit" value="Log In" class="button submit-button"></p>
+		</form>
+	</div>
+	<p style="text-align: center;">New Users <a href="{{ url_for('auth.register') }}">Register Here</a> to Read Books and <a href="{{ url_for('reader.prizes', ruuid='are', rname='great!') }}">Earn Prizes!</a></p>
+</div>
+
+{% endblock %}
+
+<!-- {#  action="{{ url_for('reader.index') }}" #} -->

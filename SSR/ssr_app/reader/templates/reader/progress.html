@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block title %}{{ rname }}'s Progress'{% endblock %}
+
+{% block content %}
+<form method="POST">
+	{{ form.hidden_tag() }}
+	{{ delete_form.hidden_tag() }}
+	{% if complete_flag %}
+	<!-- 	Confetti animation by user Steven_Joel (https://discourse.webflow.com/u/Steven_Joel) at:
+			https://discourse.webflow.com/t/add-falling-confetti-with-css/103687 -->
+	<div class="conf-container">
+		<div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+	<!--																											-->
+	{% endif %}
+		<div>
+			<h1>{{ rname }}'s Reading Progress</h1>
+			{% if complete_flag %}
+				<h2 class="centered">Congratulations on Completing Your Summer Reading Goals!</h2>
+				<h3 class="centered">
+					{% if in_area %}
+						Be sure to stop at <a href="{{ home_library_URL }}">{{ home_library }}</a> and 
+					{% else %}
+							Don't forget to
+					{% endif %}
+					pick up <a href="{{ url_for('reader.prizes', ruuid=ruuid, rname=rname) }}">your prizes</a>!</h3>
+			
+			{% else %}
+			<h2 class="centered">{{ rlevel }} Goals</h2>
+			{% endif %}
+		</div>
+
+		{% if rlevel == 'Level 1' %}
+		<div>
+			<div class="centered">
+				<h3>1. Talk, Sing, Read, Write, and Play!</h3>
+				<h4>Complete 5 of these activities with your child. Check an activity's box to add it to your completed goals.</h4>
+				<h4>Activities Completed: {{ cur_acts }} / 5</h4>
+				{% if cur_acts >= 5 %}<h3>Way to Go!</h3>{% endif %}
+				<div class="grid-container four centered">
+					{% for activity in activity_obj %}
+					<label for="{{ 'activity_check' ~ loop.index }}">
+						<div class="centered {% if acts_dict[acts_list[loop.index0]] %}checked{% endif %}">
+							<img src="{{ url_for('reader.static', filename=activity.activity_icon) }}" height="50" alt="Activity Icon" />
+							<p>{{ activity.activity_desc }}</p>
+							<p>{% if acts_dict[acts_list[loop.index0]] == False %} {{ form['activity_check' ~ loop.index] }} {% endif %}</p>
+						</div>
+					</label>
+					{% endfor %}
+				</div>
+				<h3>2. Read Every Day</h3>
+				<h4>Read 36 books to your child to complete this goal. Use the box below to track how many books you've read.</h4>
+				<div>
+					<h4>Total Books Read</h4>
+					<h4>{{ cur_books }} / 36</h4>
+					{% if cur_books >= 36 %}<h3>You Did It!</h3>{% endif %}
+					<div class="progress-bar">
+						{% if pct_books < 100 %}
+						<div class="fill" style="width: {{ pct_books }}%"><span class="fill-text">{{ pct_books }}%</span></div>
+						{% else %}
+						<div class="fill complete" style="width:100%"><span class="fill-text">{{ pct_books }}%</span></div>
+						{% endif %}
+					</div>
+					<div class="centered dark-background" style="width: 25%; margin: auto;">
+						<p>Add to {{ rname }}'s Total Books Read: &nbsp; {{ form.books_entry(class="form-line-input", style="width: 10%;") }}</p>
+						{% if form.books_entry.errors %}
+						<ul class="errors">{% for error in form.books_entry.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		{% if rlevel == 'Level 2' %}
+		<div>
+			<div class="centered">
+				<h3>1. Talk, Sing, Read, Write, and Play!</h3>
+				<h4>Complete 5 of these activities. Check an activity's box to add it to your completed goals.</h4>
+				<h4>Activities Completed: {{ cur_acts }} / 5</h4>
+				{% if cur_acts >= 5 %}<h3>Way to Go!</h3>{% endif %}
+				<div class="grid-container five centered">
+					{% for activity in activity_obj %}
+					<label for="{{ 'activity_check' ~ loop.index }}">
+						<div class="centered {% if acts_dict[acts_list[loop.index0]] %}checked{% endif %}">
+							<img src="{{ url_for('reader.static', filename=activity.activity_icon) }}" height="50" alt="Activity Icon" />
+							<p>{{ activity.activity_desc }}</p>
+							<p>{% if acts_dict[acts_list[loop.index0]] == False %} {{ form['activity_check' ~ loop.index] }} {% endif %}</p>
+						</div>
+					</label>
+					{% endfor %}
+				</div>
+				<h3>2. Read Every Day</h3>
+				<h4>Read or have someone read to you for a total of 12 hours. Use the box below to track how long you've read.</h4>
+				<div>
+					<h4>Total Time Read</h4>
+					<h4>{{ cur_time }} / 12:00:00</h4>
+					{% if pct_time == 232 %}<h3>Wooooooooooooooooooooooooooooo!</h3>{% endif %}
+					{% if pct_time >= 100 and pct_time != 232%}<h3>You Did It!</h3>{% endif %}
+					<div class="progress-bar">
+						{% if pct_time < 100 %}
+						<div class="fill" style="width: {{ pct_time }}%"><span class="fill-text">{{ pct_time }}%</span></div>
+						{% else %}
+						<div class="fill complete" style="width:100%"><span class="fill-text">{{ pct_time }}%</span></div>
+						{% endif %}
+					</div>
+					<div class="centered dark-background" style="width: 25%; margin: auto;">
+						<p>Add to {{ rname }}'s Total Time Read: &nbsp; {{ form.time_entry(class="form-line-input", style="width: 10%;") }} {{ form.time_unit }}</p>
+						{% if form.books_entry.errors %}
+						<ul class="errors">{% for error in form.books_entry.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+						{% endif %}
+					</div>
+				</div>
+				<h3>3. Answer These Questions</h3>
+				<div class="grid-container three">
+					<div{% if prog_obj.answer_1 %} class="checked" {% endif %}>
+						<p>{{ gq1 }}</p>
+						{% if prog_obj.answer_1 %}
+						<p>{{ prog_obj.answer_1 }}</p>
+						{% else %}
+						<p>{{ form.answer_1(rows='20', cols='30') }}</p>
+						{% if form.answer_1.errors %}
+						<ul class="errors">{% for error in form.answer_1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+						{% endif %}
+						{% endif %}
+				</div>
+				<div{% if prog_obj.answer_2 %} class="checked" {% endif %}>
+					<p>{{ gq2 }}</p>
+					{% if prog_obj.answer_2 %}
+					<p>{{ prog_obj.answer_2 }}</p>
+					{% else %}
+					<p>{{ form.answer_2(rows='20', cols='30') }}</p>
+					<ul class="errors">{% for error in form.answer_2.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% if form.answer_2.errors %}
+					{% endif %}
+					{% endif %}
+			</div>
+			<div{% if prog_obj.answer_3 %} class="checked" {% endif %}>
+				<p>{{ gq3 }}</p>
+				{% if prog_obj.answer_3 %}
+				<p>{{ prog_obj.answer_3 }}</p>
+				{% else %}
+				<p>{{ form.answer_3(rows='20', cols='30') }}</p>
+				{% if form.answer_3.errors %}
+				<ul class="errors">{% for error in form.answer_3.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+				{% endif %}
+				{% endif %}
+		</div>
+	</div>
+	</div>
+	</div>
+	{% endif %}
+	{% if rlevel == 'Level 3' %}
+	<div>
+		<div class="centered">
+			<h3>1. Talk, Sing, Read, Write, and Play!</h3>
+			<h4>Complete 5 of these activities. Check an activity's box to add it to your completed goals.</h4>
+			<h4>Activities Completed: {{ cur_acts }} / 5</h4>
+			{% if cur_acts >= 5 %}<h3>Way to Go!</h3>{% endif %}
+			<div class="grid-container five centered">
+				{% for activity in activity_obj %}
+				<label for="{{ 'activity_check' ~ loop.index }}">
+					<div class="centered {% if acts_dict[acts_list[loop.index0]] %}checked{% endif %}">
+						<img src="{{ url_for('reader.static', filename=activity.activity_icon) }}" height="50" alt="Activity Icon" />
+						<p>{{ activity.activity_desc }}</p>
+						<p>{% if acts_dict[acts_list[loop.index0]] == False %} {{ form['activity_check' ~ loop.index] }} {% endif %}</p>
+					</div>
+				</label>
+				{% endfor %}
+			</div>
+			<h3>2. Read Every Day</h3>
+			<h4>Read for a total of 20 hours. Use the box below to track how long you've read.</h4>
+			<div>
+				<h4>Total Time Read</h4>
+				<h4>{{ cur_time }} / 20:00:00</h4>
+				{% if pct_time == 232 %}<h3>Wooooooooooooooooooooooooooooo!</h3>{% endif %}
+				{% if pct_time >= 100 and pct_time != 232%}<h3>You Did It!</h3>{% endif %}
+				<div class="progress-bar">
+					{% if pct_time < 100 %}
+					<div class="fill" style="width: {{ pct_time }}%"><span class="fill-text">{{ pct_time }}%</span></div>
+					{% else %}
+					<div class="fill complete" style="width:100%"><span class="fill-text">{{ pct_time }}%</span></div>
+					{% endif %}
+				</div>
+				<div class="centered dark-background" style="width: 25%; margin: auto;">
+					<p>Add to {{ rname }}'s Total Time Read: &nbsp; {{ form.time_entry(class="form-line-input", style="width: 10%;") }} {{ form.time_unit }}</p>
+					{% if form.books_entry.errors %}
+					<ul class="errors">{% for error in form.books_entry.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+				</div>
+			</div>
+			<h3>3. Answer These Questions</h3>
+			<div class="grid-container two">
+				<div{% if prog_obj.answer_1 %} class="checked" {% endif %}>
+					<p>{{ gq1 }}</p>
+					{% if prog_obj.answer_1 %}
+					<p>{{ prog_obj.answer_1 }}</p>
+					{% else %}
+					<p>{{ form.answer_1(rows='20', cols='30') }}</p>
+					{% if form.answer_1.errors %}
+					<ul class="errors">{% for error in form.answer_1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+					{% endif %}
+			</div>
+			<div{% if prog_obj.answer_2 %} class="checked" {% endif %}>
+				<p>{{ gq2 }}</p>
+				{% if prog_obj.answer_2 %}
+				<p>{{ prog_obj.answer_2 }}</p>
+				{% else %}
+				<p>{{ form.answer_2(rows='20', cols='30') }}</p>
+				<ul class="errors">{% for error in form.answer_2.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+				{% if form.answer_2.errors %}
+				{% endif %}
+				{% endif %}
+		</div>
+	</div>
+	</div>
+	</div>
+	{% endif %}
+	{% if rlevel == 'Level 4' %}
+	<div>
+		<div class="centered">
+			<h3>1. Talk, Sing, Read, Write, and Play!</h3>
+			<h4>Complete 5 of these activities. Check an activity's box to add it to your completed goals.</h4>
+			<h4>Activities Completed: {{ cur_acts }} / 5</h4>
+			{% if cur_acts >= 5 %}<h3>Way to Go!</h3>{% endif %}
+			<div class="grid-container four centered">
+				{% for activity in activity_obj %}
+				<label for="{{ 'activity_check' ~ loop.index }}">
+					<div class="centered {% if acts_dict[acts_list[loop.index0]] %}checked{% endif %}">
+						<img src="{{ url_for('reader.static', filename=activity.activity_icon) }}" height="50" alt="Activity Icon" />
+						<p>{{ activity.activity_desc }}</p>
+						<p>{% if acts_dict[acts_list[loop.index0]] == False %} {{ form['activity_check' ~ loop.index] }} {% endif %}</p>
+					</div>
+				</label>
+				{% endfor %}
+			</div>
+			<h3>2. Read Every Day</h3>
+			<h4>Read for a total of 28 hours. Use the box below to track how long you've read.</h4>
+			<div>
+				<h4>Total Time Read</h4>
+				<h4>{{ cur_time }} / 28:00:00</h4>
+				{% if pct_time == 232 %}<h3>Wooooooooooooooooooooooooooooo!</h3>{% endif %}
+				{% if pct_time >= 100 and pct_time != 232%}<h3>You Did It!</h3>{% endif %}
+				<div class="progress-bar">
+					{% if pct_time < 100 %}
+					<div class="fill" style="width: {{ pct_time }}%"><span class="fill-text">{{ pct_time }}%</span></div>
+					{% else %}
+					<div class="fill complete" style="width:100%"><span class="fill-text">{{ pct_time }}%</span></div>
+					{% endif %}
+				</div>
+				<div class="centered dark-background" style="width: 25%; margin: auto;">
+					<p>Add to {{ rname }}'s Total Time Read: &nbsp; {{ form.time_entry(class="form-line-input", style="width: 10%;") }} {{ form.time_unit }}</p>
+					{% if form.books_entry.errors %}
+					<ul class="errors">{% for error in form.books_entry.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+				</div>
+			</div>
+			<h3>3. Answer These Questions</h3>
+			<div class="grid-container two">
+				<div{% if prog_obj.answer_1 %} class="checked" {% endif %}>
+					<p>{{ gq1 }}</p>
+					{% if prog_obj.answer_1 %}
+					<p>{{ prog_obj.answer_1 }}</p>
+					{% else %}
+					<p>{{ form.answer_1(rows='20', cols='30') }}</p>
+					{% if form.answer_1.errors %}
+					<ul class="errors">{% for error in form.answer_1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+					{% endif %}
+			</div>
+			<div{% if prog_obj.answer_2 %} class="checked" {% endif %}>
+				<p>{{ gq2 }}</p>
+				{% if prog_obj.answer_2 %}
+				<p>{{ prog_obj.answer_2 }}</p>
+				{% else %}
+				<p>{{ form.answer_2(rows='20', cols='30') }}</p>
+				<ul class="errors">{% for error in form.answer_2.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+				{% if form.answer_2.errors %}
+				{% endif %}
+				{% endif %}
+		</div>
+	</div>
+	</div>
+	</div>
+	{% endif %}
+
+	<div class="centered bit-o-space">{{ form.submit(class_="button submit-button") }}</div>
+	<div class="centered bit-o-space"><a href="{{ url_for('reader.index') }}">Go Back to User Home Page</a></div>
+	<div class="bit-o-space" style="text-align: left; margin: 5% 5px auto 5px;">
+		<div class="button delete-button" onclick="document.getElementById('delete01').style.display='block'">Delete Reader</div>
+	</div>
+	<!-- Delete confirmation modal from https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
+	<div id="delete01" class="modal">
+		<span onclick="document.getElementById('delete01').style.display='none'" class="close-modal" title="Close Modal">&times;</span>
+		<div class="modal-content">
+			<div class="container">
+				<h1>Delete Reader</h1>
+				<p>Are you sure you want to delete {{ rname }} & their progress?</p>
+				<p>{{ rname }}'s Reader Profile will be deleted from your account. This action is IRREVERSABLE.</p>
+				<p class="form-caption">
+					{{ rname }}'s name, street address, date of birth, and school information will be deleted. <br />
+					{% if rlevel in ['Level 2', 'Level 3', 'Level 4'] %}
+					Question Answers will also be deleted.<br />
+					{% endif %}
+					If any progress has been recorded for {{ rname }}, their City, State, 5-digit ZIP Code, Reader Age, Home Library, and Reader Progress will be retained anonymously for statistical purposes.
+				</p>
+				<div class="clearfix">
+					<button onclick="document.getElementById('delete01').style.display='none'" title="Close Modal" type="button" class="button submit-button cancel-button">Cancel</button>
+					{{ delete_form.delete(class_="button delete-button") }}
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}

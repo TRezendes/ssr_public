@@ -1,0 +1,53 @@
+    <form method='post' action='/' enctype='multipart/form-data'>
+      Upload a csv file: <input type='file' name='file'>
+      <input type='submit' value='Upload'>
+    </form>
+
+{% extends "base.html" %}
+
+{% block title %}Employee ID Import{% endblock %}
+
+{% block content %}
+
+<div class="index-page">
+	<h1>Employee ID Import</h1>
+	<div class="centered">
+		<i class="fa-solid fa-book-open-reader site-logo"></i>
+        <div class="form">
+            <h3>Upload a two-column .csv file to import employee ID numbers and roles.</h3>
+            <p>CSV—Comma Separated Value—files are text files that use commas to denote simple tables. You can creae a .csv file in most spreadsheet applications—Apple's Numbers, Microsoft Excel, Google Sheets—or <a href="https://onlinecsvtools.com/convert-text-to-csv" target="_blank">this simple online text to.csv tool</a>. Your file should have two columns: Employee IDs in the first column and staff roles—"staff" or "admin"—in the second, like the example below. It should not have headers, and thje values should not be quoted. Upon import, employee IDs will be stored securely hashed (like a password).</p>
+    		<form method="POST" enctype="multipart/form-data">
+    			{{ form.hidden_tag() }}
+
+    			{{ form.file.label(class_='register-label') }}<br />
+                <br />
+    			{{ form.file(placeholder='employee_id.csv') }}<br />
+                <br />
+                {{ form.submit }}
+    		</form>
+        </div>
+        <table class="demo-table">
+            <tr>
+                <td class="demo-table">7852649012743</td>
+                <td class="demo-table">admin</td>
+            </tr>
+            <tr>
+                <td class="demo-table">3198375154247</td>
+                <td class="demo-table">staff</td>
+            </tr>
+            <tr>
+                <td class="demo-table">4589587724852</td>
+                <td class="demo-table">staff</td>
+            </tr>
+            <tr>
+                <td class="demo-table">5778959348755</td>
+                <td class="demo-table">staff</td>
+            </tr>
+            <tr>
+                <td class="demo-table">2574545675474</td>
+                <td class="demo-table">staff</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

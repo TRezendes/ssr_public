@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	{% block head %}
+    <link rel="apple-touch-icon" sizes="57x57" href="https://simplesummerreading.com/favicon-folder/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://simplesummerreading.com/favicon-folder/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://simplesummerreading.com/favicon-folder/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://simplesummerreading.com/favicon-folder/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://simplesummerreading.com/favicon-folder/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://simplesummerreading.com/favicon-folder/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://simplesummerreading.com/favicon-folder/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://simplesummerreading.com/favicon-folder/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://simplesummerreading.com/favicon-folder/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="https://simplesummerreading.com/favicon-folder/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://simplesummerreading.com/favicon-folder/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://simplesummerreading.com/favicon-folder/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://simplesummerreading.com/favicon-folder/favicon-16x16.png">
+    <link rel="manifest" href="https://simplesummerreading.com/favicon-folder/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://simplesummerreading.com/favicon-folder/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+	<title>SSR | {% block title %}{% endblock %}</title>
+  	<link rel="preconnect" href="https://fonts.googleapis.com">
+	  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&family=Yeon+Sung&Irish+Grover&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css_base.css') }}">
+  	<script src="https://kit.fontawesome.com/56f2c79116.js" crossorigin="anonymous"></script>
+	  <!-- Alert close script from https://www.w3schools.com/howto/howto_js_alert.asp -->
+  	<script>
+  		// Get all elements with class="closebtn"
+  		var close = document.getElementsByClassName("closebtn");
+  		var i;
+
+  		// Loop through all close buttons
+  		for (i = 0; i < close.length; i++) {
+			// When someone clicks on a close button
+			close[i].onclick = function(){
+
+	  		// Get the parent of <span class="closebtn"> (<div class="alert">)
+	  		var div = this.parentElement;
+
+	  		// Set the opacity of div to 0 (transparent)
+	  		div.style.opacity = "0";
+
+	  		// Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+	  		setTimeout(function(){ div.style.display = "none"; }, 600);
+			}
+  	}
+  	</script>
+	{% endblock %}
+  </head>
+  <body>
+	  <div id="header">		  <nav>
+			  {% block nav %}
+				  <p>
+					  {% if current_user.is_authenticated %}
+						  <a href="{{ url_for('reader.index') }}">User Home</a> | <a href="{{ url_for('auth.logout_page') }}">Logout</a>
+					  {% endif %}
+					  {% if current_user.is_authenticated == False %}
+						  <a href="{{ url_for('auth.login') }}">Login</a> | <a href="{{ url_for('auth.register') }}">Register</a>
+					  {% endif %}
+					  {% if session['gsv'] in ['staff', 'admin'] %} | <a href="{{ url_for('staff.index') }}">Staff Dashboard</a> {% endif %}
+				  </p>
+			  {% endblock %}
+				<p>
+					<p class="head-right">{% if current_user.is_authenticated %}{{ session['fname'] }} |{% endif %} Simple Summer Reading</p>
+				</p>
+
+		  </nav>
+		  <!-- Flash Message Display Code -->
+		  {% with messages = get_flashed_messages(with_categories=true) %}
+			 {% if messages %}
+				 {% for category, message in messages %}
+				 <div class="alert alert-{{ category }}"">
+					 <button type="button" class="close-button" aria-label="Close" onclick="this.parentElement.style.display='none';">
+						 <span aria-hidden="true">&times;</span>
+					 </button>
+					 {{ message }}
+				 </div>
+				 {% endfor %}
+			 {% endif %}
+		  {% endwith %}
+		  <!-- -->
+
+	  </div>
+	<div id="content">{% block content %}{% endblock %}</div>
+
+    <!-- A little bit of breathing room… -->
+    <div class="breathe">
+        &nbsp;
+    </div>
+	<div id="footer" class="smaller">
+	  {% block footer %}
+	  Simple Summer Reading | An App by <a href="https://rezendes.info" target="_blank">Timothy Rezendes</a>
+	  {% endblock %}
+	</div>
+  </body>
+</html>

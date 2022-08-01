@@ -1,0 +1,15 @@
+email-validator==1.2.1
+Flask==2.1.2
+Flask_Argon2==0.2.0.0
+Flask_Login==0.6.1
+Flask_SQLAlchemy==2.5.1
+Flask_WTF==1.0.1
+matplotlib==3.5.2
+numpy==1.23.0
+psycopg2==2.9.3
+python-dotenv==0.20.0
+SQLAlchemy==1.4.39
+Werkzeug==2.1.2
+WTForms==3.0.1
+WTForms_SQLAlchemy==0.3
+wtforms_validators==1.0.0

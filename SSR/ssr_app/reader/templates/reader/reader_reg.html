@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Reader Registration{% endblock %}
+
+{% block content %}
+
+<div>
+	{% set qty = session['reader_qty'] %}
+	<h1>Register Reader</h1>
+	<div class="centered">
+		<i class="fa-solid fa-book-open-reader site-logo"></i>
+	</div>
+	<div class="form">
+		<form method="POST">
+			{{ form.hidden_tag() }}
+			<div class="flex-container" style="">
+				<div>
+					{{ form.name.label(class_='register-label') }}<br />
+					{{ form.name(size=20, placeholder='Name', class_='form-line-input') }}
+					<br />
+					<span class="form-caption">Full Name</span>
+					{% if form.name.errors %}
+						<ul class="errors">{% for error in form.name.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+				</div>
+				<div>
+					{{ form.dob.label(size=10, placeholder="04/14/2014", class_='register-label') }}<br />
+					{{ form.dob(class_='form-line-input') }}
+					<br />
+					<span class="form-caption">MM/DD/YYYY</span>
+					{% if form.dob.errors %}
+						<ul class="errors">{% for error in form.dob.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+				</div>
+			</div>
+				<div>
+					{{ form.school_bool.label }}
+					{% for subfield in form.school_bool %}
+						{{ subfield.label }} {{ subfield }}
+						<div class="sneaky" style="justify-content: center;  align-items: center;">
+							{{ form['school' ~ loop.index0] }}
+						</div>
+					{% endfor %}
+					{% if form.school_bool.errors %}
+						<ul class="errors">{% for error in form.school_bool.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+					{% if form.school0.errors %}
+						<ul class="errors">{% for error in form.school0.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+					{% if form.school1.errors %}
+						<ul class="errors">{% for error in form.school1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+
+				</div>
+				<div>
+					{{ form.mailing_address.label(class_='register-label') }}<br />
+					{{ form.mailing_address(class_='form-line-input', placeholder="221b Baker St") }}
+					<br />
+					{% if form.dob.errors %}
+						<ul class="errors">{% for error in form.mailing_address.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+				</div>
+				<div>
+					{{ form.city.label(class_='register-label') }}<br />
+					{{ form.city(class_='form-line-input', size=15, placeholder="Lancaster") }}
+					<br />
+					{% if form.city.errors %}
+						<ul class="errors">{% for error in form.city.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+				</div>
+				<div>
+					{{ form.state.label(class_='register-label') }}<br />
+					{{ form.state }}
+
+					{% if form.state.errors %}
+						<ul class="errors">{% for error in form.dob.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+				</div>
+				<div>
+					{{ form.zip5.label(class_='register-label') }} {{ form.zip5(class_='form-line-input', size=5, placeholder='12345') }} + {{ form.zip4(class_='form-line-input', size=4, placeholder='6789')}}
+				
+					{% if form.state.errors %}
+						<ul class="errors">{% for error in form.dob.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+					{% endif %}
+				</div>
+				{{ form.submit(class_="button submit-button bit-o-space") }}
+		</form>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Dashboard{% endblock %}
+
+{% block content %}
+	<div class="index-page">
+		<div class="staff-header">
+			<h1>Staff Dashboard</h1>
+			<h2>{{ user_obj.full_name_user }}</h2>
+			<h3>{{ staff_obj.job_title }} at <a href="{{ library_obj.library_website_url }}" target="_blank">{{ staff_obj.employer }}</a></h3>
+			<img src="{{ url_for('staff.static', filename=library_obj.library_logo) }}" alt="{{ staff_obj.employer }} logo" />
+			<p>
+				{% if session['gsv'] == 'admin' %}
+				Click Here For<br  />
+					<a href="{{ url_for('auth.upload') }}">Administrator Utilities</a>
+				{% endif %}
+			</p>
+		</div>
+		<div class="grid-container stat-cols">
+			<div class="grid-stat-header">
+				<h2>Summer Reading {{ date.year }}<h3>
+			</div>
+			<div class="stats grid-stat-block-1">
+				<h2>System-wide Statistics</h2>
+				<ul class="stat-list">
+					<li>Total Readers Registered:<br /><span class="stat">{{ summ_stats_obj.total_readers }}</span></li>
+					<li>Total Time Read (Levels 2–4):<br /><span class="stat">{{ tot_time }}</span></li>
+					<li>Average Time/Reader (Levels 2–4):<br /><span class="stat">{{ avg_time }}</span></li>
+					<li>Total Books Read (Level 1):<br /><span class="stat">{{ summ_stats_obj.total_books_read }}</span></li>
+					<li>Average Reader Age:<br /><span class="stat">{{ summ_stats_obj.average_age }} years old</span></<li>
+				</ul>
+			</div>
+			<div class="stats grid-stat-block-2">
+				<h2>Statistics for<br /> {{ selected_library }}</h2>
+				<ul class="stat-list">
+					<li>Readers Registered:<br /><span class="stat">{{ lib_stats_obj.total_readers }}</span></li>
+					<li>Total Time Read (Levels 2–4):<br /><span class="stat">{{ tot_lib_time }}</span></li>
+					<li>Total Books Read (Level 1):<br /><span class="stat">{{ lib_stats_obj.total_books_read }}</span></li>
+					<li>Average Reader Age:<br /><span class="stat">{{ lib_stats_obj.average_age }} years old</span></<li>
+				</ul>
+				<form method="POST">
+					{{ form.csrf_token }}
+					{{ form.library_select(onchange="this.form.submit()") }}
+				</form>
+			</div>
+			<div class="grid-stat-chart-1">
+				<h2>Readers by Age</h2>
+				<br />
+				<img src="{{ url_for('staff.charts', chart='histogram-age') }}" class="chart" />
+			</div>
+			<div class="grid-stat-chart-2">
+				<h2>Readers by Library</h2>
+				<br />
+				<img src="{{ url_for('staff.charts', chart='bar-readers') }}" class="chart" />
+			</div>
+			<div class="grid-stat-footer">
+				<h2>See Readers Who Have Completed Their Goals</h2>
+				<a href="{{ url_for('staff.completed') }}"><h3>Click Here for Reader List</h3></a>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

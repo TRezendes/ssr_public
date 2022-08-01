@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Registration{% endblock %}
+
+{% block content %}
+
+<div class="index-page">
+	<h1>Staff Registration</h1>
+	<div style="text-align: center;">
+		<i class="fa-solid fa-book-open-reader site-logo"></i>
+	</div>
+	<div class="form">
+		<form method="POST">
+			{{ form.hidden_tag() }}
+
+			<div class="flex-container">
+				<div>
+					{{ form.employer.label(class_='register-label') }}<br />
+					{{ form.employer(size=1, class_='form-select-input') }}
+					<br />
+					<span class="form-caption">Select Your Employer from the List</span>
+				</div>
+				<div>
+					{{ form.job_title.label(class_='register-label') }}<br />
+					{{ form.job_title(size=42, placeholder='Job Title', class_='form-line-input') }}
+					<br />
+					<span class="form-caption">Your Job Title</span>
+				</div>
+				
+			</div>
+			<p><input type="submit" value="Register User" class="button submit-button"></p>
+			<p><a href="{{ url_for('auth.login') }}">Already have an account? Log In</a></p>
+		</form>
+	</div> 
+</div>
+
+{% endblock %}

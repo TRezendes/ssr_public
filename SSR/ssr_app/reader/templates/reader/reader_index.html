@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Reader Page{% endblock %}
+
+{% block content %}
+	
+	<form method="POST">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	</form>
+	
+	<div class="index-page">
+		<h1>Reader Information Page</h1>
+	
+		<h2>
+			Welcome, {{ Fname }}
+			{% if session['gsv'] in ['staff', 'admin'] %}
+				&nbsp;  <a href="{{ url_for('staff.index') }}"><i class="fa-solid fa-clipboard-user"></i>&nbsp;{{ staff_role }}</a>
+			{% endif %}
+		</h2>
+		<h3>Contact Info</h3>
+		<p>
+			Email: {{ email }}<br />
+			Phone: {{ phone }}
+			<br  />
+			<div>
+				<a href="{{ url_for('reader.reader_reg') }}">Register a Reader</a>
+			</div>
+			<br  />
+			<br  />
+			{% for reader in reader_obj %}
+				<br  />
+				{{ reader.full_name_reader }} —
+				{{ reader.age }} years old —
+				{{ reader.level }} —
+				{% if reader.reader_school %}
+					{{ reader.reader_school }} —
+				{% endif %}
+				{% if reader.home_library %}
+					{{ reader.home_library }} —
+				{% endif %}
+				<a href="{{ url_for('reader.progress_page', ruuid=reader.reader_uuid, rname=reader.full_name_reader) }}">View & Update Reading Progress</a>
+				<br />
+				{% if reader.level == 'Level 1' %}
+					<span class="progress-summary">
+						<i class="fa-solid fa-shapes"{% if reader.complete == True %} style="color:#19d819;"{% endif %}></i> {{ reader.activities }} / 5 Activities &nbsp;
+						<i class="fa-solid fa-book"{% if reader.complete == True %} style="color:#19d819;"{% endif %}></i> {{ reader.books }} / 36 Books
+					</span>
+				{% endif %}
+				{% if reader.level in ['Level 2', 'Level 3', 'Level 4'] %}
+					<span class="progress-summary">
+						<i class="fa-solid fa-shapes"{% if reader.complete == True %} style="color:#19d819;"{% endif %}></i> {{ reader.activities }} / 5 Activities &nbsp;
+						<i class="fa-solid fa-stopwatch"{% if reader.complete == True %} style="color:#19d819;"{% endif %}></i> {{ reader.time }} /
+						{% if reader.level == 'Level 2' %}
+							12:00:00 &nbsp;
+						{% endif %}
+						{% if reader.level == 'Level 3' %}
+							20:00:00 &nbsp;
+						{% endif %}
+						{% if reader.level == 'Level 4' %}
+							28:00:00 &nbsp;
+						{% endif %}
+						<i class="fa-solid fa-circle-question"{% if reader.complete == True %} style="color:#19d819;"{% endif %}></i> {{ reader.questions }} /
+						{% if reader.level == 'Level 2' %}
+							3 Questions
+						{% else %}
+							2 Questions
+						{% endif %}
+					</span>
+				{% endif %}
+				<br />
+				{% if not loop.last %}
+					<hr  />
+				{% endif %}
+			{% endfor %}
+		</p>
+	</div>
+	<!-- A little bit of breathing room… -->
+	<div class="breathe">
+		&nbsp;
+	</div>
+{% endblock %}
