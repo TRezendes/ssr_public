@@ -1,5 +1,5 @@
 email-validator==1.2.1
-Flask==2.1.2
+Flask==2.2.5
 Flask_Argon2==0.2.0.0
 Flask_Login==0.6.1
 Flask_SQLAlchemy==2.5.1
