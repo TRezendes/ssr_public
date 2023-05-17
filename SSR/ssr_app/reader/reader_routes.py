@@ -1,19 +1,19 @@
 """
-Copyright (c) 2022 Timothy Rezendes
+Copyright (c) 2022–2023 Timothy Rezendes
 
 This file is part of Simple Summer Reading.
 
 Simple Summer Reading is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-Foobar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+Simple Summer Reading is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with Simple Summer Reading. If not, see <https://www.gnu.org/licenses/>.
 """
 
 from flask import Blueprint, flash, render_template, redirect, session, url_for
-from SSR.ssr_app.models import ActivityTbl, CompActsTbl, LibraryTbl, LoginInfoTbl, PrizeTbl, ReaderTbl, ReaderProgressTbl, SchoolTbl, StaffTbl, UserInfoTbl, ZipTbl, PrizeLevelVw, ReaderAgeLevelVw, ReaderGoalVw
+from ssr_app.models import ActivityTbl, CompActsTbl, LibraryTbl, LoginInfoTbl, PrizeTbl, ReaderTbl, ReaderProgressTbl, SchoolTbl, StaffTbl, UserInfoTbl, ZipTbl, PrizeLevelVw, ReaderAgeLevelVw, ReaderGoalVw
 from .reader_forms import DeleteReaderForm, ProgressForm, ReaderRegForm
 from wtforms.validators import ValidationError
 from flask_login import current_user, login_required, login_user, logout_user
-from SSR.ssr_app import db, login_manager
+from ssr_app import db, login_manager
 from datetime import timedelta
 from uuid import uuid4
 from . import reader
@@ -169,10 +169,10 @@ def progress_page(ruuid, rname):
 		act_bool = CompActsTbl.query.filter_by(activity_uuid=act.activity_uuid, reader_uuid=ruuid).first()
 		if act_bool:
 			acts_dict[acts_list[index]] = True
-	# Add up the number of completed activities to see if that goal has been acheived
+	# Add up the number of completed activities to see if that goal has been achieved
 	if sum(acts_dict.values()) >= goal_obj.number_of_activities:
 		act_flag = True
-	# Because the number of questions to answer varies, we'll start by assuming that all the question goals have been met and then evaluate  the actual state as we go
+	# Because the number of questions to answer varies, we'll start by assuming that all the question goals have been met and then evaluate the actual state as we go
 	q1_flag, q2_flag, q3_flag = True, True, True
 	# If they have to answer the question, assume they haven't met the goal
 	if goal_obj.question_1:
