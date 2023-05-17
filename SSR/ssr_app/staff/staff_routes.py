@@ -9,7 +9,7 @@ You should have received a copy of the GNU General Public License along with Sim
 """
 
 from flask import abort, Blueprint, flash, render_template, redirect, Response, request, session, url_for
-from SSR.ssr_app.models import LibraryTbl, LoginInfoTbl, ReaderTbl, StaffTbl, UserInfoTbl, LibraryStatsVw, ReaderAgeLevelVw, ReaderInfoCompVw, SummStatsVw
+from ssr_app.models import LibraryTbl, LoginInfoTbl, ReaderTbl, StaffTbl, UserInfoTbl, LibraryStatsVw, ReaderAgeLevelVw, ReaderInfoCompVw, SummStatsVw
 from flask_login import current_user, login_required, login_user, logout_user
 import matplotlib
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -21,7 +21,7 @@ import datetime
 import io
 from datetime import timedelta
 from string import Formatter
-from SSR.ssr_app import db, login_manager
+from ssr_app import db, login_manager
 from . import staff
 
 

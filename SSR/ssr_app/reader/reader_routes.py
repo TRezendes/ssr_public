@@ -9,11 +9,11 @@ You should have received a copy of the GNU General Public License along with Sim
 """
 
 from flask import Blueprint, flash, render_template, redirect, session, url_for
-from SSR.ssr_app.models import ActivityTbl, CompActsTbl, LibraryTbl, LoginInfoTbl, PrizeTbl, ReaderTbl, ReaderProgressTbl, SchoolTbl, StaffTbl, UserInfoTbl, ZipTbl, PrizeLevelVw, ReaderAgeLevelVw, ReaderGoalVw
+from ssr_app.models import ActivityTbl, CompActsTbl, LibraryTbl, LoginInfoTbl, PrizeTbl, ReaderTbl, ReaderProgressTbl, SchoolTbl, StaffTbl, UserInfoTbl, ZipTbl, PrizeLevelVw, ReaderAgeLevelVw, ReaderGoalVw
 from .reader_forms import DeleteReaderForm, ProgressForm, ReaderRegForm
 from wtforms.validators import ValidationError
 from flask_login import current_user, login_required, login_user, logout_user
-from SSR.ssr_app import db, login_manager
+from ssr_app import db, login_manager
 from datetime import timedelta
 from uuid import uuid4
 from . import reader

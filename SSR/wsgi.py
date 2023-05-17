@@ -8,7 +8,7 @@ Foobar is distributed in the hope that it will be useful, but WITHOUT ANY WARRAN
 You should have received a copy of the GNU General Public License along with Simple Summer Reading. If not, see <https://www.gnu.org/licenses/>.
 """
 
-from SSR.ssr_app import create_app
+from ssr_app import create_app
 
 application = create_app()
 

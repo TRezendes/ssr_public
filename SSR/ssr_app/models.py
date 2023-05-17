@@ -8,7 +8,7 @@ Foobar is distributed in the hope that it will be useful, but WITHOUT ANY WARRAN
 You should have received a copy of the GNU General Public License along with Simple Summer Reading. If not, see <https://www.gnu.org/licenses/>.
 """
 
-from SSR.ssr_app import argon2, db
+from ssr_app import argon2, db
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.dialects import postgresql

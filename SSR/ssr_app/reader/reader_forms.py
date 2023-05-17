@@ -9,7 +9,7 @@ You should have received a copy of the GNU General Public License along with Sim
 """
 
 from flask_wtf import FlaskForm
-from SSR.ssr_app.models import LibraryTbl, LoginInfoTbl, StaffTbl, UserInfoTbl, ZipTbl, getSchools, getStates
+from ssr_app.models import LibraryTbl, LoginInfoTbl, StaffTbl, UserInfoTbl, ZipTbl, getSchools, getStates
 from wtforms import BooleanField, DateField, DecimalField, EmailField, FloatField, FormField, HiddenField, IntegerField, RadioField, SelectField, StringField, SubmitField, TelField, TextAreaField
 from wtforms.validators import DataRequired, InputRequired, Length, NumberRange, Optional, ValidationError
 from wtforms_validators import AlphaNumeric

@@ -9,12 +9,12 @@ You should have received a copy of the GNU General Public License along with Sim
 """
 
 from flask import abort, Blueprint, flash, redirect, render_template, request, session, url_for
-from SSR.ssr_app.models import IdCheckTbl, LibraryTbl, LoginInfoTbl, StaffTbl, UserInfoTbl
+from ssr_app.models import IdCheckTbl, LibraryTbl, LoginInfoTbl, StaffTbl, UserInfoTbl
 from .auth_forms import FileForm, LoginForm, RegistrationForm, StaffRegForm
 from wtforms.validators import ValidationError
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_required, login_user, logout_user
-from SSR.ssr_app import argon2, db, login_manager
+from ssr_app import argon2, db, login_manager
 from io import TextIOWrapper
 import csv
 from uuid import uuid4

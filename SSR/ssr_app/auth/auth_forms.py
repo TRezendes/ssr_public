@@ -8,9 +8,9 @@ Foobar is distributed in the hope that it will be useful, but WITHOUT ANY WARRAN
 You should have received a copy of the GNU General Public License along with Simple Summer Reading. If not, see <https://www.gnu.org/licenses/>.
 """
 
-from SSR.ssr_app import db
+from ssr_app import db
 from flask_wtf import FlaskForm
-from SSR.ssr_app.models import LibraryTbl, LoginInfoTbl, StaffTbl, UserInfoTbl
+from ssr_app.models import LibraryTbl, LoginInfoTbl, StaffTbl, UserInfoTbl
 from wtforms import BooleanField, EmailField, HiddenField, PasswordField, StringField, SubmitField, TelField
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
