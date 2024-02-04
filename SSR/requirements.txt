@@ -13,7 +13,7 @@ Flask-Argon2==0.2.0.0
 Flask-Login==0.6.2
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.1.1
-fonttools==4.39.4
+fonttools==4.43.0
 greenlet==2.0.2
 idna==3.4
 is-disposable-email==1.0.0
